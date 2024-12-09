@@ -1,4 +1,5 @@
 import { defineConfig } from '@rslib/core';
+import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
   lib: [
@@ -12,5 +13,11 @@ export default defineConfig({
       syntax: 'es2021',
     },
   ],
+  source: {
+    entry: {
+      index: './src',
+    },
+  },
   output: { target: 'web' },
+  plugins: [pluginReact()],
 });
