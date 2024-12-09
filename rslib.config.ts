@@ -6,18 +6,16 @@ export default defineConfig({
     {
       format: 'esm',
       syntax: 'es2021',
+      bundle: true,
       dts: true,
     },
     {
       format: 'cjs',
       syntax: 'es2021',
+      bundle: true,
+      dts: true,
     },
   ],
-  source: {
-    entry: {
-      index: './src',
-    },
-  },
   output: { target: 'web' },
   plugins: [pluginReact()],
 });
