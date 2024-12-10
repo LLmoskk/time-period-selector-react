@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.0.1...v1.1.0) (2024-12-10)
+
+
+### Features
+
+* props update ([0e99eaa](https://github.com/LLmoskk/time-period-selector-react/commit/0e99eaa272c0736b40717249e0f6c6992127d3d4))
+
 ## [1.0.1](https://github.com/LLmoskk/time-period-selector-react/compare/v1.0.0...v1.0.1) (2024-12-09)
 
 
