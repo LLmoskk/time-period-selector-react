@@ -27,7 +27,7 @@ const weekDayDisplayEn: Record<WeekDay, string> = {
 
 export type Time = Record<WeekDay, number[]>;
 
-export type TimePeriodSelectorProps = {
+export interface TimePeriodSelectorProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;

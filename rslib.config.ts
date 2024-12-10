@@ -2,20 +2,20 @@ import { defineConfig } from '@rslib/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
+  source: {
+    entry: {
+      index: ['./src/**'],
+    },
+  },
   lib: [
     {
+      bundle: false,
+      dts: true,
       format: 'esm',
-      syntax: 'es2021',
-      bundle: true,
-      dts: true,
-    },
-    {
-      format: 'cjs',
-      syntax: 'es2021',
-      bundle: true,
-      dts: true,
     },
   ],
-  output: { target: 'web' },
+  output: {
+    target: 'web',
+  },
   plugins: [pluginReact()],
 });
