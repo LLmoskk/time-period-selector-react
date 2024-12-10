@@ -1,9 +1,26 @@
 import React from 'react';
-import { TimePeriodSelector } from '../src/index';
+import { Time, TimePeriodSelector } from '../src/index';
+import { useState } from 'react';
 
 const App = () => {
+  const [selectedTime, setSelectedTime] = useState<Time>({
+    Mon: [],
+    Tue: [],
+    Wed: [],
+    Thu: [],
+    Fri: [],
+    Sat: [],
+    Sun: [],
+  });
+
   return (
-    <TimePeriodSelector className='m-auto mt-52' title='Time period selector' />
+    <TimePeriodSelector
+      value={selectedTime}
+      onChange={setSelectedTime}
+      style={{ margin: '200px auto' }}
+      title='Time period selector'
+      showTime
+    />
   );
 };
 

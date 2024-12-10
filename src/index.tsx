@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './index.css';
-import { cn } from './utils';
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
 type WeekDay = (typeof weekDays)[number];
@@ -28,27 +27,30 @@ const weekDayDisplayEn: Record<WeekDay, string> = {
 export type Time = Record<WeekDay, number[]>;
 
 export interface TimePeriodSelectorProps {
-  className?: string;
   style?: React.CSSProperties;
   title?: string;
   language?: 'zh' | 'en';
   showTime?: boolean;
+  value?: Time;
+  onChange?: (value: Time) => void;
 }
 
 export function TimePeriodSelector(props: TimePeriodSelectorProps) {
-  const { className, style, title, language = 'en', showTime } = props;
+  const { style, title, language = 'en', showTime, value, onChange } = props;
   const weekDayDisplay =
     language === 'en' ? weekDayDisplayEn : weekDayDisplayZh;
 
-  const [selectedSlots, setSelectedSlots] = useState<Time>({
-    Mon: [],
-    Tue: [],
-    Wed: [],
-    Thu: [],
-    Fri: [],
-    Sat: [],
-    Sun: [],
-  });
+  const [selectedSlots, setSelectedSlots] = useState<Time>(
+    value || {
+      Mon: [],
+      Tue: [],
+      Wed: [],
+      Thu: [],
+      Fri: [],
+      Sat: [],
+      Sun: [],
+    }
+  );
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectionStart, setSelectionStart] = useState<{
     day: WeekDay;
@@ -58,20 +60,17 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
   const handleClick = (day: WeekDay, hour: number) => {
     if (isSelecting) return;
 
-    setSelectedSlots((prev) => {
-      const currentHours = prev[day];
-      if (currentHours.includes(hour)) {
-        return {
-          ...prev,
-          [day]: currentHours.filter((h) => h !== hour),
-        };
-      } else {
-        return {
-          ...prev,
-          [day]: [...currentHours, hour].sort((a, b) => a - b),
-        };
-      }
-    });
+    const newSelectedSlots = { ...selectedSlots };
+    const currentHours = selectedSlots[day];
+
+    if (currentHours.includes(hour)) {
+      newSelectedSlots[day] = currentHours.filter((h) => h !== hour);
+    } else {
+      newSelectedSlots[day] = [...currentHours, hour].sort((a, b) => a - b);
+    }
+
+    setSelectedSlots(newSelectedSlots);
+    onChange?.(newSelectedSlots);
   };
 
   const handleMouseDown = (day: WeekDay, hour: number) => {
@@ -89,12 +88,15 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
       (_, i) => minHour + i
     );
 
-    setSelectedSlots((prev) => ({
-      ...prev,
-      [day]: Array.from(new Set([...prev[day], ...hours])).sort(
+    const newSelectedSlots = {
+      ...selectedSlots,
+      [day]: Array.from(new Set([...selectedSlots[day], ...hours])).sort(
         (a, b) => a - b
       ),
-    }));
+    };
+
+    setSelectedSlots(newSelectedSlots);
+    onChange?.(newSelectedSlots);
   };
 
   const handleMouseUp = () => {
@@ -138,7 +140,7 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
   };
 
   const handleClear = () => {
-    setSelectedSlots({
+    const emptySlots: Time = {
       Mon: [],
       Tue: [],
       Wed: [],
@@ -146,51 +148,36 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
       Fri: [],
       Sat: [],
       Sun: [],
-    });
+    };
+    setSelectedSlots(emptySlots);
+    onChange?.(emptySlots);
   };
+  
   return (
-    <div
-      className={cn(
-        'w-[520px] border border-gray-200 bg-white p-5 md:w-[700px]',
-        className
-      )}
-      style={style}
-    >
-      <div className='mb-5 flex items-center justify-between'>
-        <h3 className='m-0'>{title}</h3>
-        <a
-          onClick={handleClear}
-          className='cursor-pointer text-blue-500 hover:text-blue-600'
-        >
+    <div className='time-period-selector' style={style}>
+      <div className='time-period-header'>
+        <h3 className='time-period-title'>{title}</h3>
+        <a onClick={handleClear} className='clear-button'>
           {language === 'zh' ? '清空' : 'Clear'}
         </a>
       </div>
 
-      <table className='w-full border'>
-        <thead className='border-b'>
+      <table className='time-period-table'>
+        <thead className='time-period-thead'>
           <tr>
-            <th
-              rowSpan={2}
-              className='border p-1 text-center text-xs font-normal'
-            >
+            <th rowSpan={2} className='time-period-th'>
               {language === 'zh' ? '日期/时间' : 'Date/Time'}
             </th>
-            <th
-              colSpan={12}
-              className='border p-1 text-center text-xs font-normal'
-            >
+            <th colSpan={12} className='time-period-th'>
               00:00~12:00
             </th>
-            <th
-              colSpan={12}
-              className='border p-1 text-center text-xs font-normal'
-            >
+            <th colSpan={12} className='time-period-th'>
               12:00~24:00
             </th>
           </tr>
           <tr>
             {Array.from({ length: 24 }).map((_, i) => (
-              <th key={i} className='p-1 text-center text-xs font-normal'>
+              <th key={i} className='time-period-hour-th'>
                 {i}
               </th>
             ))}
@@ -199,16 +186,12 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
         <tbody>
           {weekDays.map((day) => (
             <tr key={day}>
-              <td className='h-8 w-14 border-b text-xs text-center'>
-                {weekDayDisplay[day]}
-              </td>
+              <td className='time-period-day'>{weekDayDisplay[day]}</td>
               {Array.from({ length: 24 }).map((_, hourIndex) => (
                 <td
                   key={hourIndex}
-                  className={`h-[30px] w-[20px] cursor-pointer border border-gray-200 transition-colors ${
-                    selectedSlots[day].includes(hourIndex)
-                      ? 'bg-blue-500 hover:bg-blue-500'
-                      : 'bg-white hover:bg-blue-50'
+                  className={`time-period-hour ${
+                    selectedSlots[day].includes(hourIndex) ? 'selected' : ''
                   }`}
                   onMouseDown={() => handleMouseDown(day, hourIndex)}
                   onMouseEnter={() => handleMouseEnter(day, hourIndex)}
@@ -223,12 +206,12 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
 
       {showTime && (
         <>
-          <div className='mb-5 mt-5 border-b border-gray-200' />
+          <div className='time-period-divider' />
 
-          <div className='mb-2'>
+          <div className='time-period-selected-times'>
             {language === 'zh' ? '已选择时间:' : 'Selected Times:'}
           </div>
-          <pre className='whitespace-pre-wrap text-xs '>
+          <pre className='time-period-selected-times-text'>
             {formatSelectedTimes()}
           </pre>
         </>

@@ -16,16 +16,29 @@ npm install time-period-selector-react
 ## Usage
 
 ```jsx
-import { TimePeriodSelector } from 'time-period-selector-react';
+import { TimePeriodSelector, Time} from 'time-period-selector-react';
 
 const MyComponent = () => {
+
+  const [selectedTime, setSelectedTime] = useState<Time>({
+    Mon: [],
+    Tue: [],
+    Wed: [],
+    Thu: [],
+    Fri: [],
+    Sat: [],
+    Sun: [],
+  });
+
   return (
     <div>
       <TimePeriodSelector
         title='Select Time Period'
         language='en'
         showTime
-        className='time-period-selector'
+        style={{ margin: '200px auto' }}
+        value={selectedTime}
+        onChange={setSelectedTime}
       />
     </div>
   );
@@ -36,10 +49,12 @@ const MyComponent = () => {
 
 | Name      | Type                | Description                     |
 | --------- | ------------------- | ------------------------------- |
+| style     | React.CSSProperties | The style of the component      |
+| value     | Time                | The selected time periods        |
+| onChange  | (value: Time) => void | The callback function           |
 | title     | string              | The title of the component      |
 | language  | 'zh','en'           | The language of the component   |
 | showTime  | boolean             | Whether to show time            |
-| className | string              | The class name of the component |
 
 ## Component Features
 
