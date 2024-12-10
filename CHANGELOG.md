@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.2.0...v1.3.0) (2024-12-10)
+
+
+### Features
+
+* gitPage example ([bdfce28](https://github.com/LLmoskk/time-period-selector-react/commit/bdfce283282dce9fe1738b310b7d0015a28feb09))
+
 # [1.2.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.1.1...v1.2.0) (2024-12-10)
 
 
