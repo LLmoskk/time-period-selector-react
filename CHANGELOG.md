@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/LLmoskk/time-period-selector-react/compare/v1.3.0...v1.3.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* github Page path error ([d68da65](https://github.com/LLmoskk/time-period-selector-react/commit/d68da659d4826927a51f7367368aca16e2b0f9bb))
+
 # [1.3.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.2.0...v1.3.0) (2024-12-10)
 
 
