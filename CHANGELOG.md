@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/LLmoskk/time-period-selector-react/compare/v1.1.0...v1.1.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* css build and example ([4e49963](https://github.com/LLmoskk/time-period-selector-react/commit/4e4996343690e2b0b33304c93a769059c1d5e948))
+
 # [1.1.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.0.1...v1.1.0) (2024-12-10)
 
 
