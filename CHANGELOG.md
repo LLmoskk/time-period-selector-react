@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/LLmoskk/time-period-selector-react/compare/v1.1.1...v1.2.0) (2024-12-10)
+
+
+### Features
+
+* remove tailwind use css and update props ([f99f67d](https://github.com/LLmoskk/time-period-selector-react/commit/f99f67d283b85621c0c00795827e21a9b2f81ed6))
+
 ## [1.1.1](https://github.com/LLmoskk/time-period-selector-react/compare/v1.1.0...v1.1.1) (2024-12-10)
 
 
