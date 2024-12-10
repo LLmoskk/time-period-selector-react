@@ -10,7 +10,8 @@ export default defineConfig({
   },
   output: {
     distPath: {
-      root: 'distExample',
+      root: './distExample',
     },
+    assetPrefix: './',
   },
 });
