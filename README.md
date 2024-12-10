@@ -21,7 +21,7 @@ const MyComponent = () => {
       <TimePeriodSelector
         title='Select Time Period'
         language='en'
-        weekDayStyle={{ color: 'blue' }}
+        showTime
         className='time-period-selector'
       />
     </div>
@@ -31,12 +31,12 @@ const MyComponent = () => {
 
 ## Props
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| title | string | The title of the component |
-| language | 'zh','en' | The language of the component |
-| weekDayStyle | React.CSSProperties | The style of the week day |
-| className | string | The class name of the component |
+| Name      | Type                | Description                     |
+| --------- | ------------------- | ------------------------------- |
+| title     | string              | The title of the component      |
+| language  | 'zh','en'           | The language of the component   |
+| showTime  | boolean             | Whether to show time            |
+| className | string              | The class name of the component |
 
 ## Component Features
 
@@ -49,10 +49,11 @@ const MyComponent = () => {
 The TimePeriodSelector component uses weekDays as the list of days in a week and renders the selection area for each day based on this list. Each day's selected time periods (Time type) are stored as an array of numbers representing the selected time range.
 
 ```tsx
-const weekDays: readonly ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const weekDays: readonly ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 type WeekDay = (typeof weekDays)[number];
 export type Time = Record<WeekDay, number[]>;
 ```
 
 ## License
+
 MIT License

@@ -32,11 +32,11 @@ export interface TimePeriodSelectorProps {
   style?: React.CSSProperties;
   title?: string;
   language?: 'zh' | 'en';
-  weekDayStyle?: React.CSSProperties;
-};
+  showTime?: boolean;
+}
 
 export function TimePeriodSelector(props: TimePeriodSelectorProps) {
-  const { className, style, title, language = 'en', weekDayStyle } = props;
+  const { className, style, title, language = 'en', showTime } = props;
   const weekDayDisplay =
     language === 'en' ? weekDayDisplayEn : weekDayDisplayZh;
 
@@ -221,12 +221,18 @@ export function TimePeriodSelector(props: TimePeriodSelectorProps) {
         </tbody>
       </table>
 
-      <div className='mb-5 mt-5 border-b border-gray-200' />
+      {showTime && (
+        <>
+          <div className='mb-5 mt-5 border-b border-gray-200' />
 
-      <div className='mb-2'>
-        {language === 'zh' ? '已选择时间:' : 'Selected Times:'}
-      </div>
-      <pre className='whitespace-pre-wrap text-xs '>{formatSelectedTimes()}</pre>
+          <div className='mb-2'>
+            {language === 'zh' ? '已选择时间:' : 'Selected Times:'}
+          </div>
+          <pre className='whitespace-pre-wrap text-xs '>
+            {formatSelectedTimes()}
+          </pre>
+        </>
+      )}
     </div>
   );
 }
