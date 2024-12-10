@@ -2,6 +2,9 @@
 
 `TimePeriodSelector` is a React component that allows users to select time periods for a specific day by dragging. It supports both Chinese and English languages and allows customization of styles.
 
+![20241210114758_rec_](https://github.com/user-attachments/assets/08f6ee87-1c07-4344-ac36-d412902a1939)
+
+
 ## Installation
 
 Install the component via npm:
